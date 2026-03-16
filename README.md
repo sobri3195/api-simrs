@@ -46,7 +46,7 @@ Repository ini dirancang agar mudah dikembangkan menjadi **backend service SIMRS
   - Kabupaten
   - Kecamatan
   - Prosedur
-- Modul **AI Clinical Assistant** (10 fitur):
+- Modul **AI Clinical Assistant** (35 fitur):
   - Triage suggestion
   - Patient risk score
   - Readmission prediction
@@ -57,6 +57,31 @@ Repository ini dirancang agar mudah dikembangkan menjadi **backend service SIMRS
   - Queue estimate
   - Claim anomaly detection
   - Clinical summary generator
+  - Mortality risk estimate
+  - Sepsis early warning
+  - Stroke risk estimate
+  - Nutrition risk screening
+  - Fall risk assessment
+  - Infection control risk
+  - Surgery readiness check
+  - ICU transfer recommendation
+  - Ventilator need prediction
+  - Discharge planning score
+  - Length of stay estimate
+  - Emergency load prediction
+  - Lab critical value detection
+  - Antibiotic suggestion
+  - Dehydration risk score
+  - Pressure ulcer risk
+  - Pediatric dosage check
+  - Dialysis need prediction
+  - Blood transfusion need
+  - Mental health screening
+  - Maternal risk assessment
+  - Neonatal risk assessment
+  - Outpatient no-show prediction
+  - Vaccine eligibility check
+  - Telemedicine suitability
 - Format response API konsisten
 - Konfigurasi environment terpisah
 
