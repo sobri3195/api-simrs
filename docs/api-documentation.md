@@ -179,7 +179,7 @@ Saat menggunakan API SIMRS:
 
 # Author
 
-Lettu Kes dr. Muhammad Sobri Maulana, S.Kom, CEH, OSCP, OSCE\
+Sobri\
 GitHub: https://github.com/sobri3195\
 Email: muhammadsobrimaulana31@gmail.com
 
@@ -187,7 +187,7 @@ Email: muhammadsobrimaulana31@gmail.com
 
 # AI Clinical Assistant
 
-Tersedia 10 endpoint AI untuk membantu pengambilan keputusan operasional dan klinis.
+Tersedia 35 endpoint AI untuk membantu pengambilan keputusan operasional dan klinis.
 
 Semua endpoint menggunakan method `POST` dan prefix `/v1/ai`.
 
@@ -201,6 +201,31 @@ Semua endpoint menggunakan method `POST` dan prefix `/v1/ai`.
 8. `/queue-estimate`
 9. `/claim-anomaly-detection`
 10. `/clinical-summary`
+11. `/mortality-risk-estimate`
+12. `/sepsis-early-warning`
+13. `/stroke-risk-estimate`
+14. `/nutrition-risk-screening`
+15. `/fall-risk-assessment`
+16. `/infection-control-risk`
+17. `/surgery-readiness-check`
+18. `/icu-transfer-recommendation`
+19. `/ventilator-need-prediction`
+20. `/discharge-planning-score`
+21. `/length-of-stay-estimate`
+22. `/emergency-load-prediction`
+23. `/lab-critical-value-detection`
+24. `/antibiotic-suggestion`
+25. `/dehydration-risk-score`
+26. `/pressure-ulcer-risk`
+27. `/pediatric-dosage-check`
+28. `/dialysis-need-prediction`
+29. `/blood-transfusion-need`
+30. `/mental-health-screening`
+31. `/maternal-risk-assessment`
+32. `/neonatal-risk-assessment`
+33. `/outpatient-no-show-prediction`
+34. `/vaccine-eligibility-check`
+35. `/telemedicine-suitability`
 
 Contoh request triage suggestion:
 
