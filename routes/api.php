@@ -68,6 +68,32 @@ Route::prefix('v1')->group(function () {
         Route::post('/queue-estimate', [ClinicalAiController::class, 'queueEstimate']);
         Route::post('/claim-anomaly-detection', [ClinicalAiController::class, 'claimAnomalyDetection']);
         Route::post('/clinical-summary', [ClinicalAiController::class, 'generateClinicalSummary']);
+
+        Route::post('/mortality-risk-estimate', [ClinicalAiController::class, 'mortalityRiskEstimate']);
+        Route::post('/sepsis-early-warning', [ClinicalAiController::class, 'sepsisEarlyWarning']);
+        Route::post('/stroke-risk-estimate', [ClinicalAiController::class, 'strokeRiskEstimate']);
+        Route::post('/nutrition-risk-screening', [ClinicalAiController::class, 'nutritionRiskScreening']);
+        Route::post('/fall-risk-assessment', [ClinicalAiController::class, 'fallRiskAssessment']);
+        Route::post('/infection-control-risk', [ClinicalAiController::class, 'infectionControlRisk']);
+        Route::post('/surgery-readiness-check', [ClinicalAiController::class, 'surgeryReadinessCheck']);
+        Route::post('/icu-transfer-recommendation', [ClinicalAiController::class, 'icuTransferRecommendation']);
+        Route::post('/ventilator-need-prediction', [ClinicalAiController::class, 'ventilatorNeedPrediction']);
+        Route::post('/discharge-planning-score', [ClinicalAiController::class, 'dischargePlanningScore']);
+        Route::post('/length-of-stay-estimate', [ClinicalAiController::class, 'lengthOfStayEstimate']);
+        Route::post('/emergency-load-prediction', [ClinicalAiController::class, 'emergencyLoadPrediction']);
+        Route::post('/lab-critical-value-detection', [ClinicalAiController::class, 'labCriticalValueDetection']);
+        Route::post('/antibiotic-suggestion', [ClinicalAiController::class, 'antibioticSuggestion']);
+        Route::post('/dehydration-risk-score', [ClinicalAiController::class, 'dehydrationRiskScore']);
+        Route::post('/pressure-ulcer-risk', [ClinicalAiController::class, 'pressureUlcerRisk']);
+        Route::post('/pediatric-dosage-check', [ClinicalAiController::class, 'pediatricDosageCheck']);
+        Route::post('/dialysis-need-prediction', [ClinicalAiController::class, 'dialysisNeedPrediction']);
+        Route::post('/blood-transfusion-need', [ClinicalAiController::class, 'bloodTransfusionNeed']);
+        Route::post('/mental-health-screening', [ClinicalAiController::class, 'mentalHealthScreening']);
+        Route::post('/maternal-risk-assessment', [ClinicalAiController::class, 'maternalRiskAssessment']);
+        Route::post('/neonatal-risk-assessment', [ClinicalAiController::class, 'neonatalRiskAssessment']);
+        Route::post('/outpatient-no-show-prediction', [ClinicalAiController::class, 'outpatientNoShowPrediction']);
+        Route::post('/vaccine-eligibility-check', [ClinicalAiController::class, 'vaccineEligibilityCheck']);
+        Route::post('/telemedicine-suitability', [ClinicalAiController::class, 'telemedicineSuitability']);
     });
 
     Route::prefix('antrol')->group(function () {

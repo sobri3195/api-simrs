@@ -48,4 +48,23 @@ class ClinicalAiControllerTest extends TestCase
 
         $response->assertStatus(422);
     }
+
+
+    public function test_can_access_new_ai_feature_endpoints(): void
+    {
+        $cases = [
+            ['/api/v1/ai/mortality-risk-estimate', ['age' => 70, 'comorbidity_count' => 3, 'spo2' => 89]],
+            ['/api/v1/ai/sepsis-early-warning', ['heart_rate' => 120, 'respiratory_rate' => 30, 'temperature' => 39]],
+            ['/api/v1/ai/telemedicine-suitability', ['needs_physical_exam' => false, 'stable_condition' => true]],
+        ];
+
+        foreach ($cases as [$url, $payload]) {
+            $response = $this->postJson($url, $payload);
+
+            $response
+                ->assertOk()
+                ->assertJsonPath('metaData.code', '200');
+        }
+    }
+
 }
