@@ -182,3 +182,47 @@ Saat menggunakan API SIMRS:
 Lettu Kes dr. Muhammad Sobri Maulana, S.Kom, CEH, OSCP, OSCE\
 GitHub: https://github.com/sobri3195\
 Email: muhammadsobrimaulana31@gmail.com
+
+------------------------------------------------------------------------
+
+# AI Clinical Assistant
+
+Tersedia 10 endpoint AI untuk membantu pengambilan keputusan operasional dan klinis.
+
+Semua endpoint menggunakan method `POST` dan prefix `/v1/ai`.
+
+1. `/triage-suggestion`
+2. `/patient-risk-score`
+3. `/readmission-prediction`
+4. `/bed-demand-forecast`
+5. `/medication-interaction-check`
+6. `/duplicate-record-detection`
+7. `/referral-recommendation`
+8. `/queue-estimate`
+9. `/claim-anomaly-detection`
+10. `/clinical-summary`
+
+Contoh request triage suggestion:
+
+```json
+{
+  "symptoms": ["sesak berat", "nyeri dada"],
+  "pain_scale": 8,
+  "spo2": 88
+}
+```
+
+Contoh response:
+
+```json
+{
+  "metaData": {
+    "code": "200",
+    "message": "Sukses"
+  },
+  "response": {
+    "urgency": "tinggi",
+    "suggestion": "Prioritaskan ke IGD dan lakukan observasi ketat."
+  }
+}
+```

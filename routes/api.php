@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\Bpjs\BpjsReferensiController;
 use App\Http\Controllers\Api\Bpjs\BpjsSukonController;
 use App\Http\Controllers\Api\SatuSehat\EncounterController;
 use App\Http\Controllers\Api\SatuSehat\TokenController;
+use App\Http\Controllers\Api\Ai\ClinicalAiController;
 
 Route::prefix('v1')->group(function () {
     Route::get('/', function () {
@@ -53,6 +54,20 @@ Route::prefix('v1')->group(function () {
         // SPRI
         Route::post('/spri/insert', [BpjsSukonController::class, 'insertSpri']);
         Route::post('/spri/update', [BpjsSukonController::class, 'updateSpri']);
+    });
+
+
+    Route::prefix('ai')->group(function () {
+        Route::post('/triage-suggestion', [ClinicalAiController::class, 'triageSuggestion']);
+        Route::post('/patient-risk-score', [ClinicalAiController::class, 'patientRiskScore']);
+        Route::post('/readmission-prediction', [ClinicalAiController::class, 'readmissionPrediction']);
+        Route::post('/bed-demand-forecast', [ClinicalAiController::class, 'bedDemandForecast']);
+        Route::post('/medication-interaction-check', [ClinicalAiController::class, 'medicationInteractionCheck']);
+        Route::post('/duplicate-record-detection', [ClinicalAiController::class, 'duplicateRecordDetection']);
+        Route::post('/referral-recommendation', [ClinicalAiController::class, 'referralRecommendation']);
+        Route::post('/queue-estimate', [ClinicalAiController::class, 'queueEstimate']);
+        Route::post('/claim-anomaly-detection', [ClinicalAiController::class, 'claimAnomalyDetection']);
+        Route::post('/clinical-summary', [ClinicalAiController::class, 'generateClinicalSummary']);
     });
 
     Route::prefix('antrol')->group(function () {
