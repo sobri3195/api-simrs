@@ -46,6 +46,17 @@ Repository ini dirancang agar mudah dikembangkan menjadi **backend service SIMRS
   - Kabupaten
   - Kecamatan
   - Prosedur
+- Modul **AI Clinical Assistant** (10 fitur):
+  - Triage suggestion
+  - Patient risk score
+  - Readmission prediction
+  - Bed demand forecast
+  - Medication interaction check
+  - Duplicate record detection
+  - Referral recommendation
+  - Queue estimate
+  - Claim anomaly detection
+  - Clinical summary generator
 - Format response API konsisten
 - Konfigurasi environment terpisah
 
@@ -414,3 +425,19 @@ You are free to:
 As long as the original **copyright notice and license** are included.
 
 © 2026 Lettu Kes dr. Muhammad Sobri Maulana, S.Kom, CEH, OSCP, OSCE
+
+
+## AI Clinical Assistant Endpoints
+
+Base path: `POST /api/v1/ai`
+
+- `/triage-suggestion`
+- `/patient-risk-score`
+- `/readmission-prediction`
+- `/bed-demand-forecast`
+- `/medication-interaction-check`
+- `/duplicate-record-detection`
+- `/referral-recommendation`
+- `/queue-estimate`
+- `/claim-anomaly-detection`
+- `/clinical-summary`
