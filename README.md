@@ -1,95 +1,28 @@
-Jika repository ini membantu pengembangan **SIMRS atau sistem rumah sakit**, kamu bisa mendukung pengembangan project ini.
-
-Dukungan dari kamu akan membantu:
-
-- pengembangan fitur baru
-- update integrasi BPJS
-- maintenance repository
-- peningkatan dokumentasi
-
-Support project melalui Saweria:
-
-👉 https://saweria.co/fauzirahman05
-
-Terima kasih untuk semua yang mendukung pengembangan teknologi kesehatan di Indonesia 🙏
-
-
 # SIMRS API
 
-Backend API untuk integrasi **Sistem Informasi Manajemen Rumah Sakit (SIMRS)** dengan layanan **BPJS VClaim** menggunakan **Laravel 12**.
+Backend API untuk integrasi **Sistem Informasi Manajemen Rumah Sakit (SIMRS)** dengan layanan **BPJS VClaim**, **SatuSehat**, dan modul **AI Clinical Assistant** berbasis **Laravel 12**.
 
-Project ini dibuat sebagai fondasi layanan API internal untuk kebutuhan bridging SIMRS seperti:
-
-- pencarian peserta BPJS
-- pengelolaan SEP
-- monitoring kunjungan
-- referensi master BPJS
-- integrasi layanan rumah sakit
-
-Repository ini dirancang agar mudah dikembangkan menjadi **backend service SIMRS skala besar**.
-
----
-
-# ✨ Fitur Utama
+## ✨ Fitur Utama
 
 - Integrasi **BPJS VClaim V3**
-- Pencarian data peserta BPJS
-- Pencarian dan pengelolaan SEP
-- Monitoring kunjungan BPJS
-- Monitoring klaim BPJS
-- Referensi BPJS:
-  - Poli
-  - Diagnosa
-  - Faskes
-  - Dokter DPJP
-  - Provinsi
-  - Kabupaten
-  - Kecamatan
-  - Prosedur
-- Modul **AI Clinical Assistant** (35 fitur):
-  - Triage suggestion
-  - Patient risk score
-  - Readmission prediction
-  - Bed demand forecast
-  - Medication interaction check
-  - Duplicate record detection
-  - Referral recommendation
-  - Queue estimate
-  - Claim anomaly detection
-  - Clinical summary generator
-  - Mortality risk estimate
-  - Sepsis early warning
-  - Stroke risk estimate
-  - Nutrition risk screening
-  - Fall risk assessment
-  - Infection control risk
-  - Surgery readiness check
-  - ICU transfer recommendation
-  - Ventilator need prediction
-  - Discharge planning score
-  - Length of stay estimate
-  - Emergency load prediction
-  - Lab critical value detection
-  - Antibiotic suggestion
-  - Dehydration risk score
-  - Pressure ulcer risk
-  - Pediatric dosage check
-  - Dialysis need prediction
-  - Blood transfusion need
-  - Mental health screening
-  - Maternal risk assessment
-  - Neonatal risk assessment
-  - Outpatient no-show prediction
-  - Vaccine eligibility check
-  - Telemedicine suitability
+  - Pencarian peserta
+  - Kelola SEP (cari, insert, update, hapus, riwayat)
+  - Monitoring kunjungan dan klaim
+  - Referensi master BPJS (poli, diagnosa, faskes, dokter DPJP, provinsi, kabupaten, kecamatan, prosedur)
+  - Surat kontrol & SPRI
+- Integrasi **SatuSehat**
+  - Generate token
+  - Kirim encounter
+- Integrasi **Antrol RS**
+  - Endpoint antrean
+- Modul **AI Clinical Assistant** (35 endpoint)
 - Format response API konsisten
-- Konfigurasi environment terpisah
 
 ---
 
-# 🏗️ Tech Stack
+## 🏗️ Tech Stack
 
-- PHP 8.2
+- PHP 8.2+
 - Laravel 12
 - Laravel Sanctum
 - Spatie Permission
@@ -98,257 +31,153 @@ Repository ini dirancang agar mudah dikembangkan menjadi **backend service SIMRS
 
 ---
 
-# 📁 Struktur Project
+## 🚀 Instalasi
 
-```
-simrs-api/
-│
-├── app/
-├── bootstrap/
-├── config/
-├── database/
-├── public/
-├── resources/
-├── routes/
-├── storage/
-├── tests/
-│
-├── .env.example
-├── artisan
-├── composer.json
-├── package.json
-└── vite.config.js
-```
-
-Struktur ini mengikuti standar Laravel sehingga memudahkan pengembangan API secara modular.
-
----
-
-# 🚀 Instalasi
-
-## 1 Clone repository
-
-```
+```bash
 git clone https://github.com/ahmadfauzirahman99/simrs-api.git
 cd simrs-api
-```
-
----
-
-## 2 Gunakan branch utama
-
-```
-git checkout pmaster
-```
-
----
-
-## 3 Install dependency
-
-```
 composer install
-```
-
----
-
-## 4 Install dependency frontend
-
-```
 npm install
-```
-
----
-
-## 5 Copy environment file
-
-```
 cp .env.example .env
-```
-
----
-
-## 6 Generate application key
-
-```
 php artisan key:generate
-```
-
----
-
-## 7 Jalankan migrasi
-
-```
 php artisan migrate
 ```
 
----
+Jalankan aplikasi:
 
-## 8 Jalankan aplikasi
-
-```
+```bash
 php artisan serve
-```
-
-Untuk development asset:
-
-```
 npm run dev
 ```
 
+Atau mode cepat:
+
+```bash
+composer run dev
+```
+
 ---
 
-# ⚙️ Konfigurasi Environment
+## ⚙️ Konfigurasi Environment
 
-Edit file `.env`
+Contoh `.env` minimum:
 
-```
-APP_NAME=SIMRS API
+```env
+APP_NAME="SIMRS API"
 APP_ENV=local
-APP_KEY=
 APP_DEBUG=true
 APP_URL=http://localhost
 
 DB_CONNECTION=sqlite
 ```
 
-Konfigurasi BPJS:
+Konfigurasi BPJS VClaim:
 
-```
+```env
 BPJS_V3_API_VER=2
 BPJS_V3_BASE_URL=URL_BPJS_V3
 BPJS_V3_CONS_ID=CONS_ID_BPJS_V3
-BPJS_V3_SECRET_KEY=SECRET_KEY_BP
+BPJS_V3_SECRET_KEY=SECRET_KEY_BPJS_V3
 BPJS_V3_USER_KEY=USER_KEY_BPJS_V3
 ```
 
 ---
 
-# ▶️ Menjalankan Project
+## 📡 Base API
 
-Mode development cepat
+Base URL lokal:
 
-```
-composer run dev
-```
-
-Mode manual
-
-```
-php artisan serve
-npm run dev
-```
-
----
-
-# 📡 Base API
-
-Contoh base URL lokal
-
-```
+```text
 http://127.0.0.1:8000/api/v1
 ```
 
-Endpoint root
+Cek status:
 
-```
-GET /api/v1
-```
-
-Response:
-
-```
-{
-  "metaData": {
-    "code": "200",
-    "message": "Sukses"
-  },
-  "response": {
-    "app": "SIMRS API",
-    "version": "v1",
-    "status": "active"
-  }
-}
-```
-
----
-
-# 📚 Daftar Endpoint
-
-## Cek status API
-
-```
+```http
 GET /api/v1
 ```
 
 ---
 
-## BPJS VClaim
+## 📚 Ringkasan Endpoint
 
-### Cari peserta
+### BPJS (`/api/v1/bpjs`)
 
-```
-GET /api/v1/bpjs/peserta
-```
+- `GET /peserta`
+- `GET /sep`
+- `GET /sep-riwayat`
+- `POST /sep`
+- `PUT /sep`
+- `DELETE /sep`
+- `GET /monitoring-kunjungan`
+- `GET /monitoring-klaim`
+- `GET /referensi/poli`
+- `GET /referensi/diagnosa`
+- `GET /referensi/faskes`
+- `GET /referensi/dokter-dpjp`
+- `GET /referensi/provinsi`
+- `GET /referensi/kabupaten`
+- `GET /referensi/kecamatan`
+- `GET /referensi/prosedur`
+- `POST /surat-kontrol/insert`
+- `POST /surat-kontrol/update`
+- `POST /spri/insert`
+- `POST /spri/update`
 
-Parameter
+### AI Clinical Assistant (`/api/v1/ai`)
 
-```
-nomor
-tipe
-```
+- `POST /triage-suggestion`
+- `POST /patient-risk-score`
+- `POST /readmission-prediction`
+- `POST /bed-demand-forecast`
+- `POST /medication-interaction-check`
+- `POST /duplicate-record-detection`
+- `POST /referral-recommendation`
+- `POST /queue-estimate`
+- `POST /claim-anomaly-detection`
+- `POST /clinical-summary`
+- `POST /mortality-risk-estimate`
+- `POST /sepsis-early-warning`
+- `POST /stroke-risk-estimate`
+- `POST /nutrition-risk-screening`
+- `POST /fall-risk-assessment`
+- `POST /infection-control-risk`
+- `POST /surgery-readiness-check`
+- `POST /icu-transfer-recommendation`
+- `POST /ventilator-need-prediction`
+- `POST /discharge-planning-score`
+- `POST /length-of-stay-estimate`
+- `POST /emergency-load-prediction`
+- `POST /lab-critical-value-detection`
+- `POST /antibiotic-suggestion`
+- `POST /dehydration-risk-score`
+- `POST /pressure-ulcer-risk`
+- `POST /pediatric-dosage-check`
+- `POST /dialysis-need-prediction`
+- `POST /blood-transfusion-need`
+- `POST /mental-health-screening`
+- `POST /maternal-risk-assessment`
+- `POST /neonatal-risk-assessment`
+- `POST /outpatient-no-show-prediction`
+- `POST /vaccine-eligibility-check`
+- `POST /telemedicine-suitability`
+
+### Antrol (`/api/v1/antrol`)
+
+- `GET /antrean`
+
+### SatuSehat (`/api/v1/satu-sehat`)
+
+- `GET /token`
+- `POST /encounter/send`
 
 ---
 
-### Cari SEP
+## 🧾 Format Response
 
-```
-GET /api/v1/bpjs/sep
-```
+Success:
 
-Parameter
-
-```
-no_sep
-```
-
----
-
-### Monitoring kunjungan
-
-```
-GET /api/v1/bpjs/monitoring-kunjungan
-```
-
-Parameter
-
-```
-tanggal
-tipe
-```
-
----
-
-### Monitoring klaim
-
-```
-GET /api/v1/bpjs/monitoring-klaim
-```
-
-Parameter
-
-```
-tanggal
-tipe
-status
-```
-
----
-
-# 🧾 Format Response
-
-Success response
-
-```
+```json
 {
   "metaData": {
     "code": "200",
@@ -358,9 +187,9 @@ Success response
 }
 ```
 
-Error response
+Error:
 
-```
+```json
 {
   "metaData": {
     "code": "400",
@@ -372,97 +201,16 @@ Error response
 
 ---
 
-
----
-
-# 👨‍💻 Author
+## 👨‍💻 Author
 
 **Lettu Kes dr. Muhammad Sobri Maulana, S.Kom, CEH, OSCP, OSCE**
 
-GitHub: [sobri3195](https://github.com/sobri3195)  
-Email: [muhammadsobrimaulana31@gmail.com](mailto:muhammadsobrimaulana31@gmail.com)  
-Website: [muhammadsobrimaulana.netlify.app](https://muhammadsobrimaulana.netlify.app)
-
-## 🌐 Social & Community
-
-- YouTube: https://www.youtube.com/@muhammadsobrimaulana6013
-- Telegram: https://t.me/winlin_exploit
-- TikTok: https://www.tiktok.com/@dr.sobri
-- Grup WhatsApp: https://chat.whatsapp.com/B8nwRZOBMo64GjTwdXV8Bl
-
-## 💝 Donasi & Dukungan
-
-- Lynk: https://lynk.id/muhsobrimaulana
-- Trakteer: https://trakteer.id/g9mkave5gauns962u07t
-- Gumroad: https://maulanasobri.gumroad.com/
-- KaryaKarsa: https://karyakarsa.com/muhammadsobrimaulana
-- Nyawer: https://nyawer.co/MuhammadSobriMaulana
-- Sevalla Page: https://muhammad-sobri-maulana-kvr6a.sevalla.page/
-
-## 🛒 Toko Online
-
-- Toko Online Sobri: https://pegasus-shop.netlify.app
-
-
-# LICENSE
-
-MIT License
-
-Copyright (c) 2026 Lettu Kes dr. Muhammad Sobri Maulana, S.Kom, CEH, OSCP, OSCE
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-This project may be used for personal or commercial purposes, including
-integration with hospital information systems (SIMRS), provided that the
-original copyright notice and license are retained.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
-
+- GitHub: [sobri3195](https://github.com/sobri3195)
+- Email: [muhammadsobrimaulana31@gmail.com](mailto:muhammadsobrimaulana31@gmail.com)
+- Website: [muhammadsobrimaulana.netlify.app](https://muhammadsobrimaulana.netlify.app)
 
 ---
 
-# 📜 License
+## 📜 License
 
 This project is licensed under the **MIT License**.
-
-You are free to:
-
-- Use this project for personal use
-- Use this project for commercial use
-- Modify the source code
-- Distribute the software
-- Integrate with other systems
-
-As long as the original **copyright notice and license** are included.
-
-© 2026 Lettu Kes dr. Muhammad Sobri Maulana, S.Kom, CEH, OSCP, OSCE
-
-
-## AI Clinical Assistant Endpoints
-
-Base path: `POST /api/v1/ai`
-
-- `/triage-suggestion`
-- `/patient-risk-score`
-- `/readmission-prediction`
-- `/bed-demand-forecast`
-- `/medication-interaction-check`
-- `/duplicate-record-detection`
-- `/referral-recommendation`
-- `/queue-estimate`
-- `/claim-anomaly-detection`
-- `/clinical-summary`
