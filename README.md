@@ -1,22 +1,39 @@
 # SIMRS API
 
-Backend API untuk integrasi **Sistem Informasi Manajemen Rumah Sakit (SIMRS)** dengan layanan **BPJS VClaim**, **SatuSehat**, dan modul **AI Clinical Assistant** berbasis **Laravel 12**.
+Backend API untuk integrasi **Sistem Informasi Manajemen Rumah Sakit (SIMRS)** dengan layanan **BPJS VClaim**, **SatuSehat**, **Antrol RS**, dan **AI Clinical Assistant** berbasis **Laravel 12**.
 
-## ✨ Fitur Utama
+## ✨ Fitur & Modul
 
-- Integrasi **BPJS VClaim V3**
-  - Pencarian peserta
-  - Kelola SEP (cari, insert, update, hapus, riwayat)
-  - Monitoring kunjungan dan klaim
-  - Referensi master BPJS (poli, diagnosa, faskes, dokter DPJP, provinsi, kabupaten, kecamatan, prosedur)
-  - Surat kontrol & SPRI
-- Integrasi **SatuSehat**
-  - Generate token
-  - Kirim encounter
-- Integrasi **Antrol RS**
-  - Endpoint antrean
-- Modul **AI Clinical Assistant** (35 endpoint)
-- Format response API konsisten
+### 1) Modul BPJS VClaim (`/api/v1/bpjs`)
+- Pencarian peserta
+- Kelola SEP (cari, insert, update, hapus, riwayat)
+- Monitoring kunjungan dan klaim
+- Referensi master BPJS:
+  - poli
+  - diagnosa
+  - faskes
+  - dokter DPJP
+  - provinsi
+  - kabupaten
+  - kecamatan
+  - prosedur
+- Surat Kontrol & SPRI
+
+### 2) Modul AI Clinical Assistant (`/api/v1/ai`)
+Tersedia **35 endpoint AI** untuk membantu triase, prediksi risiko klinis, deteksi anomali, hingga dukungan keputusan operasional rumah sakit.
+
+### 3) Modul Antrol RS (`/api/v1/antrol`)
+- Endpoint antrean RS
+
+### 4) Modul SatuSehat (`/api/v1/satu-sehat`)
+- Generate token OAuth2
+- Kirim data encounter FHIR
+
+### 5) Standarisasi Response
+Semua endpoint menggunakan format JSON konsisten:
+- `metaData.code`
+- `metaData.message`
+- `response`
 
 ---
 
@@ -81,6 +98,14 @@ BPJS_V3_SECRET_KEY=SECRET_KEY_BPJS_V3
 BPJS_V3_USER_KEY=USER_KEY_BPJS_V3
 ```
 
+Konfigurasi SatuSehat (opsional sesuai integrasi):
+
+```env
+SATUSEHAT_CLIENT_ID=your_client_id
+SATUSEHAT_CLIENT_SECRET=your_client_secret
+SATUSEHAT_BASE_URL=https://api-satusehat.kemkes.go.id
+```
+
 ---
 
 ## 📡 Base API
@@ -91,7 +116,7 @@ Base URL lokal:
 http://127.0.0.1:8000/api/v1
 ```
 
-Cek status:
+Health check:
 
 ```http
 GET /api/v1
@@ -173,6 +198,16 @@ GET /api/v1
 
 ---
 
+## 🧪 Pengujian
+
+```bash
+composer test
+```
+
+> Jika dependency belum terpasang, jalankan `composer install` terlebih dahulu.
+
+---
+
 ## 🧾 Format Response
 
 Success:
@@ -203,7 +238,7 @@ Error:
 
 ## 👨‍💻 Author
 
-**Lettu Kes dr. Muhammad Sobri Maulana, S.Kom, CEH, OSCP, OSCE**
+**Sobri**
 
 - GitHub: [sobri3195](https://github.com/sobri3195)
 - Email: [muhammadsobrimaulana31@gmail.com](mailto:muhammadsobrimaulana31@gmail.com)
