@@ -179,5 +179,6 @@ Saat menggunakan API SIMRS:
 
 # Author
 
-SIMRS API\
-Backend Integration for Hospital Information System
+Lettu Kes dr. Muhammad Sobri Maulana, S.Kom, CEH, OSCP, OSCE\
+GitHub: https://github.com/sobri3195\
+Email: muhammadsobrimaulana31@gmail.com

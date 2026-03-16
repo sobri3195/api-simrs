@@ -341,20 +341,38 @@ Error response
 
 # 👨‍💻 Author
 
-**Ahmad Fauzi Rahman**
+**Lettu Kes dr. Muhammad Sobri Maulana, S.Kom, CEH, OSCP, OSCE**
 
-Backend Developer  
-SIMRS Developer  
-Healthcare Technology Enthusiast
+GitHub: [sobri3195](https://github.com/sobri3195)  
+Email: [muhammadsobrimaulana31@gmail.com](mailto:muhammadsobrimaulana31@gmail.com)  
+Website: [muhammadsobrimaulana.netlify.app](https://muhammadsobrimaulana.netlify.app)
 
-GitHub:  
+## 🌐 Social & Community
+
+- YouTube: https://www.youtube.com/@muhammadsobrimaulana6013
+- Telegram: https://t.me/winlin_exploit
+- TikTok: https://www.tiktok.com/@dr.sobri
+- Grup WhatsApp: https://chat.whatsapp.com/B8nwRZOBMo64GjTwdXV8Bl
+
+## 💝 Donasi & Dukungan
+
+- Lynk: https://lynk.id/muhsobrimaulana
+- Trakteer: https://trakteer.id/g9mkave5gauns962u07t
+- Gumroad: https://maulanasobri.gumroad.com/
+- KaryaKarsa: https://karyakarsa.com/muhammadsobrimaulana
+- Nyawer: https://nyawer.co/MuhammadSobriMaulana
+- Sevalla Page: https://muhammad-sobri-maulana-kvr6a.sevalla.page/
+
+## 🛒 Toko Online
+
+- Toko Online Sobri: https://pegasus-shop.netlify.app
 
 
 # LICENSE
 
 MIT License
 
-Copyright (c) 2026 Ahmad Fauzi Rahman
+Copyright (c) 2026 Lettu Kes dr. Muhammad Sobri Maulana, S.Kom, CEH, OSCP, OSCE
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -395,4 +413,4 @@ You are free to:
 
 As long as the original **copyright notice and license** are included.
 
-© 2026 Ahmad Fauzi Rahman
+© 2026 Lettu Kes dr. Muhammad Sobri Maulana, S.Kom, CEH, OSCP, OSCE
