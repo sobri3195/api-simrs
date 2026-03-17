@@ -17,7 +17,11 @@ class ClinicalAiControllerTest extends TestCase
         $response
             ->assertOk()
             ->assertJsonPath('metaData.code', '200')
-            ->assertJsonPath('response.urgency', 'tinggi');
+            ->assertJsonPath('response.urgency', 'tinggi')
+            ->assertJsonStructure([
+                'metaData' => ['code', 'message', 'timestamp', 'request_id'],
+                'response',
+            ]);
     }
 
     public function test_can_detect_claim_anomaly(): void
@@ -47,6 +51,23 @@ class ClinicalAiControllerTest extends TestCase
         ]);
 
         $response->assertStatus(422);
+    }
+
+
+    public function test_request_id_header_is_reflected_in_response_metadata(): void
+    {
+        $requestId = 'simrs-test-request-id';
+
+        $response = $this
+            ->withHeaders(['X-Request-Id' => $requestId])
+            ->postJson('/api/v1/ai/queue-estimate', [
+                'queue_number' => 5,
+                'avg_service_minutes' => 10,
+            ]);
+
+        $response
+            ->assertOk()
+            ->assertJsonPath('metaData.request_id', $requestId);
     }
 
     public function test_all_ai_endpoints_accept_valid_payload(): void
@@ -96,7 +117,7 @@ class ClinicalAiControllerTest extends TestCase
                 ->assertOk()
                 ->assertJsonPath('metaData.code', '200')
                 ->assertJsonStructure([
-                    'metaData' => ['code', 'message'],
+                    'metaData' => ['code', 'message', 'timestamp', 'request_id'],
                     'response',
                 ]);
         }
