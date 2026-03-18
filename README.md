@@ -23,13 +23,21 @@ Backend API untuk integrasi **Sistem Informasi Manajemen Rumah Sakit (SIMRS)** d
 Tersedia **35 endpoint AI** untuk membantu triase, prediksi risiko klinis, deteksi anomali, hingga dukungan keputusan operasional rumah sakit.
 
 ### 3) Modul Antrol RS (`/api/v1/antrol`)
-- Endpoint antrean RS
+- Ringkasan antrean RS
+- Master poli
+- Master dokter
+- Jadwal dokter
 
 ### 4) Modul SatuSehat (`/api/v1/satu-sehat`)
 - Generate token OAuth2
 - Kirim data encounter FHIR
 
-### 5) Standarisasi Response
+### 5) Authentication & User Management (`/api/v1/auth`, `/api/v1/users`)
+- Register, login, profil user, logout
+- Daftar user dan role
+- Ubah role user
+
+### 6) Standarisasi Response
 Semua endpoint menggunakan format JSON konsisten:
 - `metaData.code`
 - `metaData.message`
@@ -190,6 +198,26 @@ GET /api/v1
 ### Antrol (`/api/v1/antrol`)
 
 - `GET /antrean`
+- `GET /poli`
+- `GET /dokter`
+- `GET /jadwal-dokter`
+
+### Authentication & User Management
+
+- `POST /auth/register`
+- `POST /auth/login`
+- `GET /auth/me` *(auth:sanctum)*
+- `POST /auth/logout` *(auth:sanctum)*
+- `GET /users` *(auth:sanctum)*
+- `POST /users` *(auth:sanctum)*
+- `PUT /users/{user}/role` *(auth:sanctum)*
+- `GET /roles` *(auth:sanctum)*
+
+### Utility Catalog
+
+- `GET /dashboard`
+- `GET /apotek`
+- `GET /vclaim`
 
 ### SatuSehat (`/api/v1/satu-sehat`)
 

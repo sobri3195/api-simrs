@@ -1,14 +1,18 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Api\Ai\ClinicalAiController;
 use App\Http\Controllers\Api\Antrol\AntreanRsController;
-use App\Http\Controllers\Api\Bpjs\BpjsVClaimController;
+use App\Http\Controllers\Api\ApotekController;
+use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\Bpjs\BpjsReferensiController;
 use App\Http\Controllers\Api\Bpjs\BpjsSukonController;
+use App\Http\Controllers\Api\Bpjs\BpjsVClaimController;
+use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\SatuSehat\EncounterController;
 use App\Http\Controllers\Api\SatuSehat\TokenController;
-use App\Http\Controllers\Api\Ai\ClinicalAiController;
+use App\Http\Controllers\Api\UserManagementController;
+use App\Http\Controllers\Api\VClaimController;
+use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
     Route::get('/', function () {
@@ -25,6 +29,27 @@ Route::prefix('v1')->group(function () {
         ]);
     });
 
+    Route::get('/dashboard', [DashboardController::class, 'index']);
+    Route::get('/apotek', [ApotekController::class, 'index']);
+    Route::get('/vclaim', [VClaimController::class, 'index']);
+
+    Route::prefix('auth')->group(function () {
+        Route::post('/register', [AuthController::class, 'register']);
+        Route::post('/login', [AuthController::class, 'login']);
+
+        Route::middleware('auth:sanctum')->group(function () {
+            Route::get('/me', [AuthController::class, 'me']);
+            Route::post('/logout', [AuthController::class, 'logout']);
+        });
+    });
+
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::get('/users', [UserManagementController::class, 'index']);
+        Route::post('/users', [UserManagementController::class, 'store']);
+        Route::put('/users/{user}/role', [UserManagementController::class, 'updateRole']);
+        Route::get('/roles', [UserManagementController::class, 'roles']);
+    });
+
     Route::prefix('bpjs')->group(function () {
         Route::get('/peserta', [BpjsVClaimController::class, 'peserta']);
         Route::get('/sep', [BpjsVClaimController::class, 'cariSep']);
@@ -32,7 +57,6 @@ Route::prefix('v1')->group(function () {
         Route::post('/sep', [BpjsVClaimController::class, 'insertSep']);
         Route::put('/sep', [BpjsVClaimController::class, 'updateSep']);
         Route::delete('/sep', [BpjsVClaimController::class, 'hapusSep']);
-
 
         Route::get('/monitoring-kunjungan', [BpjsVClaimController::class, 'monitoringKunjungan']);
         Route::get('/monitoring-klaim', [BpjsVClaimController::class, 'monitoringKlaim']);
@@ -46,16 +70,11 @@ Route::prefix('v1')->group(function () {
         Route::get('/referensi/kecamatan', [BpjsReferensiController::class, 'kecamatan']);
         Route::get('/referensi/prosedur', [BpjsReferensiController::class, 'prosedur']);
 
-
-        //Sukon
         Route::post('/surat-kontrol/insert', [BpjsSukonController::class, 'insertSuratKontrol']);
         Route::post('/surat-kontrol/update', [BpjsSukonController::class, 'updateSuratKontrol']);
-
-        // SPRI
         Route::post('/spri/insert', [BpjsSukonController::class, 'insertSpri']);
         Route::post('/spri/update', [BpjsSukonController::class, 'updateSpri']);
     });
-
 
     Route::prefix('ai')->group(function () {
         Route::post('/triage-suggestion', [ClinicalAiController::class, 'triageSuggestion']);
@@ -68,7 +87,6 @@ Route::prefix('v1')->group(function () {
         Route::post('/queue-estimate', [ClinicalAiController::class, 'queueEstimate']);
         Route::post('/claim-anomaly-detection', [ClinicalAiController::class, 'claimAnomalyDetection']);
         Route::post('/clinical-summary', [ClinicalAiController::class, 'generateClinicalSummary']);
-
         Route::post('/mortality-risk-estimate', [ClinicalAiController::class, 'mortalityRiskEstimate']);
         Route::post('/sepsis-early-warning', [ClinicalAiController::class, 'sepsisEarlyWarning']);
         Route::post('/stroke-risk-estimate', [ClinicalAiController::class, 'strokeRiskEstimate']);
@@ -98,9 +116,10 @@ Route::prefix('v1')->group(function () {
 
     Route::prefix('antrol')->group(function () {
         Route::get('/antrean', [AntreanRsController::class, 'index']);
+        Route::get('/poli', [AntreanRsController::class, 'poli']);
+        Route::get('/dokter', [AntreanRsController::class, 'dokter']);
+        Route::get('/jadwal-dokter', [AntreanRsController::class, 'jadwalDokter']);
     });
-
-
 
     Route::prefix('satu-sehat')->group(function () {
         Route::get('/token', [TokenController::class, 'index']);

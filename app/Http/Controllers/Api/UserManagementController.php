@@ -2,67 +2,67 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\User;
-use Illuminate\Http\Request;
+use App\Helpers\ApiResponse;
 use App\Http\Controllers\Controller;
+use App\Models\User;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 
 class UserManagementController extends Controller
 {
-    public function index()
+    public function index(): JsonResponse
     {
-        $users = User::with('roles')->latest()->get();
+        $users = User::with('roles', 'permissions')->latest()->get();
 
-        return response()->json([
-            'success' => true,
-            'data' => $users,
-        ]);
+        return ApiResponse::success([
+            'total' => $users->count(),
+            'items' => $users,
+        ], 'Daftar user berhasil diambil');
     }
 
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
-        $request->validate([
-            'name' => ['required'],
+        $payload = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'unique:users,email'],
-            'password' => ['required', 'min:6'],
+            'password' => ['required', 'string', 'min:6'],
             'role' => ['required', 'exists:roles,name'],
         ]);
 
         $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => $request->password,
+            'name' => $payload['name'],
+            'email' => $payload['email'],
+            'password' => $payload['password'],
         ]);
 
-        $user->assignRole($request->role);
+        $user->assignRole($payload['role']);
 
-        return response()->json([
-            'success' => true,
-            'message' => 'User berhasil dibuat',
-            'data' => $user->load('roles'),
-        ], 201);
+        return ApiResponse::created([
+            'user' => $user->load('roles', 'permissions'),
+        ], 'User berhasil dibuat');
     }
 
-    public function updateRole(Request $request, User $user)
+    public function updateRole(Request $request, User $user): JsonResponse
     {
-        $request->validate([
+        $payload = $request->validate([
             'role' => ['required', 'exists:roles,name'],
         ]);
 
-        $user->syncRoles([$request->role]);
+        $user->syncRoles([$payload['role']]);
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Role user berhasil diubah',
-            'data' => $user->load('roles'),
-        ]);
+        return ApiResponse::success([
+            'user' => $user->load('roles', 'permissions'),
+        ], 'Role user berhasil diubah');
     }
 
-    public function roles()
+    public function roles(): JsonResponse
     {
-        return response()->json([
-            'success' => true,
-            'data' => Role::all(),
-        ]);
+        $roles = Role::query()->with('permissions')->orderBy('name')->get();
+
+        return ApiResponse::success([
+            'total' => $roles->count(),
+            'items' => $roles,
+        ], 'Daftar role berhasil diambil');
     }
 }
