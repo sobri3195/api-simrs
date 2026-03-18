@@ -2,84 +2,66 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\User;
-use Illuminate\Http\Request;
+use App\Helpers\ApiResponse;
 use App\Http\Controllers\Controller;
+use App\Models\User;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
-    public function register(Request $request)
+    public function register(Request $request): JsonResponse
     {
-        $request->validate([
+        $payload = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255', 'unique:users,email'],
-            'password' => ['required', 'min:6'],
+            'password' => ['required', 'string', 'min:6'],
         ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => $request->password,
-        ]);
-
+        $user = User::create($payload);
         $user->assignRole('superadmin');
 
-        $token = $user->createToken('api-token')->plainTextToken;
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Register berhasil',
-            'data' => [
-                'user' => $user->load('roles'),
-                'token' => $token,
-            ],
-        ], 201);
+        return ApiResponse::created([
+            'user' => $user->load('roles'),
+            'token' => $user->createToken('api-token')->plainTextToken,
+        ], 'Register berhasil');
     }
 
-    public function login(Request $request)
+    public function login(Request $request): JsonResponse
     {
-        $request->validate([
+        $payload = $request->validate([
             'email' => ['required', 'email'],
-            'password' => ['required'],
+            'password' => ['required', 'string'],
         ]);
 
-        $user = User::where('email', $request->email)->first();
+        $user = User::where('email', $payload['email'])->first();
 
-        if (! $user || ! Hash::check($request->password, $user->password)) {
+        if (! $user || ! Hash::check($payload['password'], $user->password)) {
             throw ValidationException::withMessages([
                 'email' => ['Email atau password salah.'],
             ]);
         }
 
-        $token = $user->createToken('api-token')->plainTextToken;
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Login berhasil',
-            'data' => [
-                'user' => $user->load('roles', 'permissions'),
-                'token' => $token,
-            ],
-        ]);
+        return ApiResponse::success([
+            'user' => $user->load('roles', 'permissions'),
+            'token' => $user->createToken('api-token')->plainTextToken,
+        ], 'Login berhasil');
     }
 
-    public function me(Request $request)
+    public function me(Request $request): JsonResponse
     {
-        return response()->json([
-            'success' => true,
-            'data' => $request->user()->load('roles', 'permissions'),
-        ]);
+        return ApiResponse::success(
+            $request->user()->load('roles', 'permissions'),
+            'Profil pengguna berhasil diambil',
+        );
     }
 
-    public function logout(Request $request)
+    public function logout(Request $request): JsonResponse
     {
-        $request->user()->currentAccessToken()->delete();
+        $request->user()?->currentAccessToken()?->delete();
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Logout berhasil',
-        ]);
+        return ApiResponse::success((object) [], 'Logout berhasil');
     }
 }
