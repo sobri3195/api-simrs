@@ -218,6 +218,7 @@ GET /api/v1
 - `GET /dashboard`
 - `GET /apotek`
 - `GET /vclaim`
+- `GET /system-info`
 
 ### SatuSehat (`/api/v1/satu-sehat`)
 

@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\Ai\ClinicalAiController;
 use App\Http\Controllers\Api\Antrol\AntreanRsController;
 use App\Http\Controllers\Api\ApotekController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\SystemInfoController;
 use App\Http\Controllers\Api\Bpjs\BpjsReferensiController;
 use App\Http\Controllers\Api\Bpjs\BpjsSukonController;
 use App\Http\Controllers\Api\Bpjs\BpjsVClaimController;
@@ -32,6 +33,7 @@ Route::prefix('v1')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index']);
     Route::get('/apotek', [ApotekController::class, 'index']);
     Route::get('/vclaim', [VClaimController::class, 'index']);
+    Route::get('/system-info', [SystemInfoController::class, 'index']);
 
     Route::prefix('auth')->group(function () {
         Route::post('/register', [AuthController::class, 'register']);
