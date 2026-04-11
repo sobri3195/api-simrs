@@ -13,20 +13,15 @@ use App\Http\Controllers\Api\SatuSehat\EncounterController;
 use App\Http\Controllers\Api\SatuSehat\TokenController;
 use App\Http\Controllers\Api\UserManagementController;
 use App\Http\Controllers\Api\VClaimController;
+use App\Helpers\ApiResponse;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('v1')->group(function () {
+    Route::prefix('v1')->group(function () {
     Route::get('/', function () {
-        return response()->json([
-            'metaData' => [
-                'code' => '200',
-                'message' => 'Sukses',
-            ],
-            'response' => (object) [
-                'app' => 'SIMRS API',
-                'version' => 'v1',
-                'status' => 'active',
-            ],
+        return ApiResponse::success((object) [
+            'app' => 'SIMRS API',
+            'version' => 'v1',
+            'status' => 'active',
         ]);
     });
 
@@ -129,12 +124,6 @@ Route::prefix('v1')->group(function () {
     });
 
     Route::fallback(function () {
-        return response()->json([
-            'metaData' => [
-                'code' => '404',
-                'message' => 'Endpoint tidak ditemukan',
-            ],
-            'response' => (object) [],
-        ], 404);
+        return ApiResponse::error('Endpoint tidak ditemukan', 404, (object) []);
     });
 });
