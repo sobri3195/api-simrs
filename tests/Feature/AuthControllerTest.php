@@ -29,4 +29,16 @@ class AuthControllerTest extends TestCase
                 'response' => ['user', 'token'],
             ]);
     }
+
+    public function test_me_requires_authentication_with_standardized_response(): void
+    {
+        $this->getJson('/api/v1/auth/me')
+            ->assertStatus(401)
+            ->assertJsonPath('metaData.code', '401')
+            ->assertJsonPath('metaData.message', 'Unauthenticated')
+            ->assertJsonStructure([
+                'metaData' => ['code', 'message', 'timestamp', 'request_id'],
+                'response',
+            ]);
+    }
 }

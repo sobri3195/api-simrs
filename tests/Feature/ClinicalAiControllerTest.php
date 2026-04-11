@@ -50,7 +50,14 @@ class ClinicalAiControllerTest extends TestCase
             'spo2' => 40,
         ]);
 
-        $response->assertStatus(422);
+        $response
+            ->assertStatus(422)
+            ->assertJsonPath('metaData.code', '422')
+            ->assertJsonPath('metaData.message', 'Validasi gagal')
+            ->assertJsonStructure([
+                'metaData' => ['code', 'message', 'timestamp', 'request_id'],
+                'response' => ['errors'],
+            ]);
     }
 
 
